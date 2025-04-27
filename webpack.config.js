@@ -29,6 +29,7 @@ async function createHtmlPlugins() {
 }
 
 export default async () => {
+	const routes = (await import('./engine/router.js')).default;
 	const htmlPlugins = await createHtmlPlugins();
 	const entries = await generateEntries(routes);
 	return {
