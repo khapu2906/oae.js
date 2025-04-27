@@ -1,0 +1,33 @@
+{
+  "name": "E-A.js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "npx ts-node --esm --experimental-specifier-resolution=node --project tsconfig.json node_modules/webpack-cli/bin/cli.js serve --mode development --config webpack.config.js",
+    "build": "npx ts-node --esm --experimental-specifier-resolution=node --project tsconfig.json node_modules/webpack-cli/bin/cli.js --mode production --config webpack.config.js"
+  },
+  "devDependencies": {
+    "@types/alpinejs": "^3.13.11",
+    "@types/ejs": "^3.1.5",
+    "@types/html-webpack-plugin": "^3.2.9",
+    "@types/node": "^22.15.2",
+    "@types/webpack": "^5.28.5",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "style-loader": "^4.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "webpack": "^5.99.7",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.9",
+    "ejs": "^3.1.10",
+    "open": "^10.1.1",
+    "ts-loader": "^9.5.2",
+    "webpack-dev-server": "^5.2.1"
+  }
+}
