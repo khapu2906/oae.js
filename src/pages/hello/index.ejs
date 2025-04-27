@@ -1,4 +1,5 @@
-<h1 id="h">Hello <%= author %></h1>
-<div x-data="{ count: <%= count %> }">
-  <button @click="count++">Clicked: <span x-text="count"></span> times</button>
+<div class="container">
+  <h1>Hello <%= author %>!</h1>
+  <p>Welcome to our amazing product! Click the button below to learn more.</p>
+    <button class="button" @click="$store.hello.openAlert()">Learn More</button>
 </div>

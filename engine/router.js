@@ -28,7 +28,7 @@ const routes = [
 		variables: {
 			title: 'Bye Page',
 		},
-	},
+	}
 ];
 
 export default routes;

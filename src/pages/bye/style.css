@@ -1,0 +1,8 @@
+.slide-in {
+  transform: translateX(0);
+  transition: transform 1s ease-in-out;
+}
+
+.container {
+  transform: translateX(-100%);
+}

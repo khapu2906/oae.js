@@ -1,4 +1,5 @@
-<h1>Bye</h1>
-<div x-data="{ message: 'See you later!' }">
-	<h3 x-text="message"></h3>
+<div class="container">
+  <h1>Goodbye!</h1>
+  <p>Thank you for visiting our website. We hope to see you again soon!</p>
+  <button class="button" @click="Alpine.store.bye.redirectToHello()">Contact Us</button>
 </div>

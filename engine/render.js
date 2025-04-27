@@ -36,6 +36,7 @@ const defaultConfig = {
  * @throws {Error} If there is an error reading the template files or compiling the templates.
  */
 async function renderPage(route, config = null) {
+	console.log('renderPage called for route:', route);
 	const newConfig = config ?? defaultConfig;
 
 	// Determine the paths to the page, layout, and root templates.

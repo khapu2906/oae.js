@@ -1,5 +1,10 @@
 import './style.css';
+import Alpine from 'alpinejs';
 
-console.log("hello script")
+Alpine.store('bye', {
+  redirectToHello: () => {
+    window.location.href = '/hello.html';
+  }
+});
 
 export default {};
