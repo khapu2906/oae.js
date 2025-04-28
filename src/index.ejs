@@ -4,15 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%- title %></title>
+    <title><%- title %></title> 
     <link rel="stylesheet" href="/style/index.css">
-    <link rel="stylesheet" href="<%- style %>">
+
+    <% styles.forEach(function(style) { %>
+        <link rel="stylesheet" href="<%= style %>">
+    <% }); %>
+
 </head>
 
 <body>
     <%- page %>
-    <script src="<%- script %>"></script>
+
     <script src="/index-bundle.js"></script>
+    <% scripts.forEach(function(script) { %>
+        <script src="<%= script %>"></script>
+    <% }); %>
+
 </body>
 
 </html>

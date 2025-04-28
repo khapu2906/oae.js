@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFile } from 'fs/promises';
 import { compile } from 'ejs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -40,19 +40,22 @@ async function renderPage(route, config = null) {
 	const newConfig = config ?? defaultConfig;
 
 	// Determine the paths to the page, layout, and root templates.
-	const pageTemplate = route.module ? `${route.template}/index.ejs` : `${route.template}.ejs`;
+	const pageTemplate = `${route.template}/index.ejs`
 	const pagePath = path.join(rootDir, newConfig.sourcePage, pageTemplate);
 
 	const layoutPath = path.join(rootDir, newConfig.sourceLayout, route.layout, 'index.ejs');
 	const rootTemplatePath = path.join(rootDir, newConfig.rootTemplate);
 
 	try {
-		const pageContent = readFileSync(pagePath, 'utf-8');
-		const layoutContent = readFileSync(layoutPath, 'utf-8');
-		const rootTemplateContent = readFileSync(rootTemplatePath, 'utf-8');
+		const pageContent = await readFile(pagePath, 'utf-8');
+		const layoutContent = await readFile(layoutPath, 'utf-8');
+		const rootTemplateContent = await readFile(rootTemplatePath, 'utf-8');
 
-		const scriptPath = route.module ? `/${route.template}-bundle.js` : `/${route.template}.js`;
-		const stylePath = route.style || `/style/${route.template}.css`;
+		const scriptPathPage =  `/${route.template}-bundle.js`
+		const stylePathPage = route.style || `/style/${route.template}.css`;
+
+		const scriptLayoutPath = `/l-${route.layout}-bundle.js`
+		const styleLayoutPath = `/style/l-${route.layout}.css`
 
 		const page = compile(pageContent, {
 			filename: pagePath,
@@ -82,8 +85,8 @@ async function renderPage(route, config = null) {
 		const rendered = rootTemplate({
 			page: layoutRendered,
 			title: route.variables?.title || route.title || '',
-			script: scriptPath,
-			style: stylePath,
+			scripts: [scriptPathPage, scriptLayoutPath],
+			styles: [stylePathPage, styleLayoutPath],
 			...route.variables
 		});
 
@@ -104,13 +107,16 @@ async function generateEntries(routes) {
 	const entries = {};
 
 	for (const route of routes) {
-		if (route.module) {
-			const entryPath = path.join(rootDir, 'src/pages', route.template, 'index.ts');
-			entries[route.template] = entryPath;
+		const entryPath = path.join(rootDir, 'src/pages', route.template, 'script.ts');
+		entries[route.template] = entryPath;
+
+		if (route.layout) {
+			const entryPath = path.join(rootDir, 'src/layouts', route.layout, 'script.ts');
+			entries[`l-${ route.layout }` ] = entryPath;
 		}
 	}
 
 	return entries;
-}
+}	
 
 export { renderPage, generateEntries };
